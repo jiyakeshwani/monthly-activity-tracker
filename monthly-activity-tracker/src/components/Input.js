@@ -11,6 +11,20 @@ class Input extends React.Component {
     };
   }
 
+  componentDidMount() {
+    let activities = localStorage.getItem("activity-tracker")
+      ? JSON.parse(localStorage.getItem("activity-tracker"))
+      : [];
+    this.setState({ activities });
+  }
+
+  componentDidUpdate() {
+    localStorage.setItem(
+      "activity-tracker",
+      JSON.stringify(this.state.activities)
+    );
+  }
+
   handleIsDone = (date, activityName) => {
     let activities = JSON.parse(JSON.stringify(this.state.activities));
 
@@ -79,7 +93,7 @@ class Input extends React.Component {
               onChange={this.handleInput}
             />
             <button type="submit" className="btn1" onClick={this.handleSubmit}>
-              Add Activity 
+              Add Activity
             </button>
           </form>
         </div>
